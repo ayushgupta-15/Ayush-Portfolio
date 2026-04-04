@@ -15,7 +15,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type MobileAppId = "about" | "experience" | "projects" | "skills" | "resume" | "contact";
 
@@ -93,43 +93,6 @@ const mobileApps: MobileApp[] = [
 const featuredProjects = projects.filter((project) => project.isFavorite).slice(0, 3);
 const highlightedSkills = languages.slice(0, 12);
 
-function StatusClock() {
-    const [time, setTime] = useState("");
-
-    useEffect(() => {
-        const update = () =>
-            setTime(
-                new Date().toLocaleTimeString("en-US", {
-                    hour: "numeric",
-                    minute: "2-digit",
-                })
-            );
-
-        update();
-        const interval = window.setInterval(update, 60000);
-        return () => window.clearInterval(interval);
-    }, []);
-
-    return <span className="text-[13px] font-semibold tracking-[0.02em] text-white">{time}</span>;
-}
-
-function StatusBar() {
-    return (
-        <div className="absolute inset-x-0 top-0 z-30 px-6 pb-2 pt-3 md:px-8 md:pt-5">
-            <div className="flex items-center justify-between px-1">
-                <StatusClock />
-                <div className="flex items-center gap-1.5">
-                    <div className="h-2.5 w-2.5 rounded-full bg-white/95" />
-                    <div className="h-2.5 w-2.5 rounded-full bg-white/70" />
-                    <div className="h-2.5 w-6 rounded-full border border-white/70">
-                        <div className="m-[1px] h-[calc(100%-2px)] w-4 rounded-full bg-white/90" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
 function AppIcon({
     app,
     onOpen,
@@ -167,53 +130,51 @@ function HomeScreen({
     onOpen: (id: MobileAppId) => void;
 }) {
     return (
-        <div className="relative z-10 flex h-full min-h-full flex-col px-5 pb-4 pt-14 md:px-7 md:pb-6 md:pt-20">
-            <div>
-                <div className="rounded-[2rem] border border-white/15 bg-black/20 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.32)] backdrop-blur-2xl md:p-6">
-                    <div className="flex items-center gap-3">
-                        <Image
-                            src="/images/assets/image.png"
-                            alt="Ayush Gupta"
-                            width={54}
-                            height={54}
-                            className="h-[54px] w-[54px] rounded-2xl object-cover ring-1 ring-white/20"
-                            priority
-                        />
-                        <div>
-                            <p className="text-xl font-semibold text-white md:text-2xl">Ayush Gupta</p>
-                            <p className="text-sm text-white/70 md:text-base">Full-Stack Developer Intern</p>
-                        </div>
-                    </div>
-                    <p className="mt-3 text-sm leading-6 text-white/80 md:mt-4 md:max-w-xl md:text-base">
-                        Backend systems, AI products, and scalable web applications. DTU ECE, currently building with
-                        Next.js, Go, PostgreSQL, and modern API workflows.
-                    </p>
-                    <div className="mt-4 flex gap-2 md:mt-5">
-                        <button
-                            type="button"
-                            onClick={() => onOpen("projects")}
-                            className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900 md:px-5 md:py-2.5"
-                        >
-                            View Projects
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => onOpen("resume")}
-                            className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white md:px-5 md:py-2.5"
-                        >
-                            Resume
-                        </button>
+        <div className="relative z-10 min-h-full px-5 pb-32 pt-6 md:px-7 md:pb-36 md:pt-8">
+            <div className="rounded-[2rem] border border-white/15 bg-black/20 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.32)] backdrop-blur-2xl md:p-6">
+                <div className="flex items-center gap-3">
+                    <Image
+                        src="/images/assets/image.png"
+                        alt="Ayush Gupta"
+                        width={54}
+                        height={54}
+                        className="h-[54px] w-[54px] rounded-2xl object-cover ring-1 ring-white/20"
+                        priority
+                    />
+                    <div>
+                        <p className="text-xl font-semibold text-white md:text-2xl">Ayush Gupta</p>
+                        <p className="text-sm text-white/70 md:text-base">Full-Stack Developer Intern</p>
                     </div>
                 </div>
-
-                <div className="mt-6 grid grid-cols-3 gap-y-6 md:mt-8 md:grid-cols-6 md:gap-x-5 md:gap-y-8">
-                    {mobileApps.map((app) => (
-                        <AppIcon key={app.id} app={app} onOpen={onOpen} />
-                    ))}
+                <p className="mt-3 text-sm leading-6 text-white/80 md:mt-4 md:max-w-xl md:text-base">
+                    Backend systems, AI products, and scalable web applications. DTU ECE, currently building with
+                    Next.js, Go, PostgreSQL, and modern API workflows.
+                </p>
+                <div className="mt-4 flex gap-2 md:mt-5">
+                    <button
+                        type="button"
+                        onClick={() => onOpen("projects")}
+                        className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900 md:px-5 md:py-2.5"
+                    >
+                        View Projects
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => onOpen("resume")}
+                        className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white md:px-5 md:py-2.5"
+                    >
+                        Resume
+                    </button>
                 </div>
             </div>
 
-            <div className="mt-auto flex justify-center pt-6 md:pt-8">
+            <div className="mt-6 grid grid-cols-3 gap-y-6 md:mt-8 md:grid-cols-6 md:gap-x-5 md:gap-y-8">
+                {mobileApps.map((app) => (
+                    <AppIcon key={app.id} app={app} onOpen={onOpen} />
+                ))}
+            </div>
+
+            <div className="absolute inset-x-0 bottom-8 flex justify-center md:bottom-10">
                 <div className="inline-flex items-center gap-3 rounded-[2rem] border border-white/15 bg-white/10 px-4 py-3 shadow-[0_20px_80px_rgba(0,0,0,0.24)] backdrop-blur-2xl md:gap-4 md:px-5 md:py-3.5">
                     <Link
                         href="https://github.com/ayushgupta-15"
@@ -268,7 +229,7 @@ function AppShell({
             transition={{ duration: 0.28, ease: "easeOut" }}
             className="absolute inset-0 z-20 overflow-hidden rounded-[2.9rem] border border-white/15 bg-[linear-gradient(180deg,rgba(18,24,45,0.96),rgba(10,14,28,0.98))] shadow-[0_30px_120px_rgba(0,0,0,0.45)]"
         >
-            <div className="flex items-center justify-between border-b border-white/10 px-5 pb-4 pt-16 md:px-7 md:pb-5 md:pt-20">
+            <div className="flex items-center justify-between border-b border-white/10 px-5 pb-4 pt-6 md:px-7 md:pb-5 md:pt-8">
                 <div>
                     <h2 className="text-2xl font-semibold text-white md:text-[1.9rem]">{title}</h2>
                 </div>
@@ -542,30 +503,26 @@ export default function MobileViewNotice() {
     );
 
     return (
-        <div className="min-h-[100dvh] bg-[#050816] p-3 md:flex md:items-center md:justify-center md:p-6">
-            <div className="relative mx-auto min-h-[calc(100dvh-24px)] w-full max-w-[390px] rounded-[3rem] border border-white/12 bg-[linear-gradient(180deg,#1a1b22,#0b0b0f)] p-[8px] shadow-[0_40px_120px_rgba(0,0,0,0.45)] md:min-h-[min(900px,calc(100dvh-48px))] md:max-w-[860px] md:rounded-[3.3rem] md:p-[10px]">
-                <div className="relative flex min-h-[calc(100dvh-40px)] overflow-hidden rounded-[2.6rem] bg-black/70 md:min-h-[min(880px,calc(100dvh-68px))] md:rounded-[3rem]">
+        <div className="min-h-[100dvh] bg-[#050816]">
+            <div className="relative flex min-h-[100dvh] w-full overflow-hidden bg-black/70">
                 <Image
                     src="/images/macos-monterey.jpg"
-                    alt="iPhone wallpaper"
-                        fill
-                        priority
-                        className="object-cover"
+                    alt="Mobile wallpaper"
+                    fill
+                    priority
+                    className="object-cover"
                 />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_34%),linear-gradient(180deg,rgba(20,18,52,0.12),rgba(4,7,18,0.35))]" />
-                <div className="absolute left-1/2 top-2 z-30 h-7 w-36 -translate-x-1/2 rounded-full bg-black/85 md:top-3 md:h-8 md:w-44" />
-                <StatusBar />
 
                 <HomeScreen onOpen={setActiveApp} />
 
-                    <AnimatePresence>
-                        {activeApp && (
-                            <AppShell title={activeAppTitle} onClose={() => setActiveApp(null)}>
-                                {renderAppContent(activeApp)}
-                            </AppShell>
-                        )}
-                    </AnimatePresence>
-                </div>
+                <AnimatePresence>
+                    {activeApp && (
+                        <AppShell title={activeAppTitle} onClose={() => setActiveApp(null)}>
+                            {renderAppContent(activeApp)}
+                        </AppShell>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );
