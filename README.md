@@ -1,77 +1,38 @@
-# Ayush Gupta Portfolio
+# Ayush Gupta, portfolio
 
-A Macintosh-inspired developer portfolio built with Next.js, React, Tailwind CSS, and Framer Motion.
+Live: https://ayushportfolio15.vercel.app
 
-The site presents projects, experience, skills, resume links, and contact information through a desktop-style interface on larger screens and a mobile/tablet app-style interface on compact screens.
+A scroll-driven portfolio. The intro is a real-time three.js scene: a chip with a glowing die, a dive through it, then three chapters (hardware, systems, products) with floating panels of real code from my repositories. Below it are my experience, projects, about and contact sections.
 
-## Live Site
+Phones and tablets get a lighter version of the scene. Reduced-motion users and browsers without WebGL get a static intro with the same content as text and code blocks.
 
-[Portfolio](https://portfolio-nine-sigma-74.vercel.app/)
+## Stack
 
-## Highlights
+- Next.js 15 (App Router), React 19, TypeScript
+- three.js with react-three-fiber, post-processing with `@react-three/postprocessing`
+- Lenis for smooth scrolling, Framer Motion for scroll-linked values
+- Plain CSS, no UI framework
 
-- Desktop experience inspired by classic macOS window management
-- Mobile and tablet experience redesigned as an iPhone/iPad-style portfolio UI
-- Recruiter-focused sections for projects, work, skills, resume, and contact
-- PWA support with offline page and installable metadata
-- Built with modern Next.js App Router architecture
-
-## Tech Stack
-
-- Next.js 15
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- Framer Motion
-- Zustand
-- Nodemailer
-
-## Getting Started
-
-Install dependencies:
+## Run it
 
 ```bash
 npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Open `http://localhost:3000`.
-
-## Available Scripts
-
-```bash
-npm run dev
+npm run dev     # http://localhost:3000
 npm run build
-npm run start
-npm run lint
 ```
 
-## Project Structure
+## Structure
 
-```text
-src/app/
-  components/        UI, windows, desktop shell, mobile shell
-  api/               contact/mail API route
-  offline/           offline fallback page
-Constants/           app data, metadata, skills, projects
-public/              icons, images, audio, resume files, favicons
-store/               Zustand store and local storage hook
-util/                utility helpers and services
+```
+app/                 layout, page, global styles, favicon
+components/
+  Experience.tsx     preloader, HUD, chapters, static fallback
+  scene/World.tsx    chip, tunnel, code panels, stars, post-processing
+  scene/panelTexture.ts   draws code snippets onto canvas textures
+  Reveal.tsx, Tilt.tsx, SiteNav.tsx, Starfield.tsx, ...
+lib/
+  data.ts            experience, projects and skills
+  snippets.ts        the code shown in the 3D panels
 ```
 
-## Notes
-
-- Desktop and compact layouts are intentionally different to fit their input model and screen size.
-- The site uses local assets for app icons, technology icons, wallpapers, and resume files.
-- Production build currently skips ESLint during `next build`; lint can still be run separately with `npm run lint`.
-
-## Contact
-
-- Email: `ayushgupta.professional@gmail.com`
-- LinkedIn: [ayush-gupta-](https://www.linkedin.com/in/ayush-gupta-/)
-- GitHub: [ayushgupta-15](https://github.com/ayushgupta-15)
+The code panels in the intro are real excerpts, each labelled with its file and repository.
