@@ -54,7 +54,7 @@ export default function Home() {
       <main>
         <section id="experience" className="wrap section">
           <Reveal kind="rgb" as="h2">Experience</Reveal>
-          <p className="section-note">Hibiscustech and EcoXchange, 2025 to 2026</p>
+          <p className="section-note">Hibiscustech since 2025, EcoXchange in 2026</p>
           <ul className="exp">
             {experience.map((e, i) => (
               <Reveal as="li" kind="line" delay={i * 80} key={e.company} className="exp-item">
